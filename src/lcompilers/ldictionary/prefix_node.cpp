@@ -56,4 +56,18 @@ namespace LCompilers::LDictionary {
     return iter->second;
   }
 
+  void PrefixNode::buffer(std::stringstream &ss) const {
+    if (_parent != nullptr) {
+      _parent->buffer(ss);
+      ss << _label;
+    }
+    // do not buffer the root node
+  }
+
+  auto PrefixNode::operator*() const -> std::string {
+    std::stringstream ss;
+    buffer(ss);
+    return ss.str();
+  }
+
 } // namespace LCompilers::LDictionary

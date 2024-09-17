@@ -43,6 +43,10 @@ namespace LCompilers::LDictionary {
     return PrefixIterator(curr);
   }
 
+  auto PrefixTrie::cursor() const -> PrefixCursor {
+    return PrefixCursor(_root);
+  }
+
   auto PrefixTrie::begin() const -> PrefixIterator {
     return PrefixIterator(_root);
   }

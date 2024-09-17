@@ -3,20 +3,14 @@
 namespace LCompilers::LDictionary {
 
   PrefixIterator::PrefixIterator(PrefixNode *node) {
-    _pending.push(node);
-    ++(*this);
+    if (node != nullptr) {
+      _pending.push(node);
+      ++(*this);
+    }
   }
 
   PrefixIterator::PrefixIterator() {
     // empty
-  }
-
-  void PrefixIterator::buffer(PrefixNode *node) {
-    if (node->parent() != nullptr) {
-      buffer(node->parent());
-      ss << node->label();
-    }
-    // do not buffer the root node
   }
 
   auto PrefixIterator::operator++() -> PrefixIterator & {
@@ -28,7 +22,7 @@ namespace LCompilers::LDictionary {
         _pending.push(child);
       }
       if (node->is_final()) {
-        buffer(node);
+        node->buffer(ss);
         break;
       }
     }

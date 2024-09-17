@@ -19,7 +19,6 @@ namespace LCompilers::LDictionary {
   private:
     std::queue<PrefixNode *> _pending;
     std::stringstream ss;
-    void buffer(PrefixNode *node);
   }; // class PrefixIterator
 
 } // namespace LCompilers::LDictionary

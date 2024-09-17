@@ -5,6 +5,7 @@
 #include <string>
 
 #include "prefix_node.h"
+#include "prefix_cursor.h"
 #include "prefix_iterator.h"
 
 namespace LCompilers::LDictionary {
@@ -16,6 +17,7 @@ namespace LCompilers::LDictionary {
     auto size() const -> std::size_t;
     auto insert(const std::string &term) -> bool;
     auto lookup(const std::string &term) const -> PrefixIterator;
+    auto cursor() const -> PrefixCursor;
     auto begin() const -> PrefixIterator;
     auto end() const -> PrefixIterator;
   private:

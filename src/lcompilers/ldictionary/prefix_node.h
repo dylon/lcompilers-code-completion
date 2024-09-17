@@ -2,6 +2,8 @@
 #define LCOMPILERS_LDICTIONARY_PREFIX_NODE_H
 
 #include <map>
+#include <sstream>
+#include <string>
 
 namespace LCompilers::LDictionary {
 
@@ -16,6 +18,8 @@ namespace LCompilers::LDictionary {
     auto parent() const -> PrefixNode *;
     auto label() const -> char;
     auto transition(char label) -> PrefixNode *;
+    void buffer(std::stringstream &ss) const;
+    auto operator*() const -> std::string;
 
   private:
     PrefixNode *_parent;
