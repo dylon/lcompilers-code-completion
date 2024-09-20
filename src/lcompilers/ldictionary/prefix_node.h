@@ -22,10 +22,11 @@ namespace LCompilers::LDictionary {
     auto operator*() const -> std::string;
 
   private:
-    PrefixNode *_parent;
-    char _label;
-    bool _is_final;
-    std::map<char, PrefixNode *> _edges;
+    PrefixNode *m_parent;
+    char m_label;
+    bool m_is_final;
+    std::map<char, PrefixNode *> m_edges;
+
     friend class PrefixTrie;
     friend class PrefixIterator;
   }; // class PrefixNode

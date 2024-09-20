@@ -3,39 +3,39 @@
 namespace LCompilers::LDictionary {
 
   PrefixCursor::PrefixCursor(PrefixNode *node)
-    : _curr(node),
-      _prev(node->parent()) {
+    : m_curr(node),
+      m_prev(node->parent()) {
     // empty
   }
 
   PrefixCursor::PrefixCursor()
-    : _curr(nullptr),
-      _prev(nullptr) {
+    : m_curr(nullptr),
+      m_prev(nullptr) {
     // empty
   }
 
   auto PrefixCursor::seek(const std::string &suffix) -> bool {
     for (int i = 0, k = suffix.size();
-         (i < k) && (_curr != nullptr);
+         (i < k) && (m_curr != nullptr);
          i++) {
       const char &label = suffix[i];
-      _prev = _curr;
-      _curr = _curr->transition(label);
+      m_prev = m_curr;
+      m_curr = m_curr->transition(label);
     }
-    return (_curr != nullptr);
+    return (m_curr != nullptr);
   }
 
   auto PrefixCursor::rewind(int num_steps) -> bool {
-    while ((num_steps > 0) && (_prev != nullptr)) {
-      _curr = _prev;
-      _prev = _curr->parent();
+    while ((num_steps > 0) && (m_prev != nullptr)) {
+      m_curr = m_prev;
+      m_prev = m_curr->parent();
       num_steps--;
     }
-    return (_curr != nullptr);
+    return (m_curr != nullptr);
   }
 
   auto PrefixCursor::begin() const -> PrefixIterator {
-    return PrefixIterator(_curr);
+    return PrefixIterator(m_curr);
   }
 
   auto PrefixCursor::end() const -> PrefixIterator {
@@ -43,11 +43,11 @@ namespace LCompilers::LDictionary {
   }
 
   auto PrefixCursor::curr() const -> PrefixNode * {
-    return _curr;
+    return m_curr;
   }
 
   auto PrefixCursor::prev() const -> PrefixNode * {
-    return _prev;
+    return m_prev;
   }
 
 } // namespace LCompilers::LDictionary

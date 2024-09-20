@@ -4,7 +4,7 @@ namespace LCompilers::LDictionary {
 
   PrefixIterator::PrefixIterator(PrefixNode *node) {
     if (node != nullptr) {
-      _pending.push(node);
+      m_pending.push(node);
       ++(*this);
     }
   }
@@ -14,15 +14,15 @@ namespace LCompilers::LDictionary {
   }
 
   auto PrefixIterator::operator++() -> PrefixIterator & {
-    ss.str(std::string());
-    while (!_pending.empty()) {
-      PrefixNode *node = _pending.front();
-      _pending.pop();
-      for (const auto &[label, child] : node->_edges) {
-        _pending.push(child);
+    m_ss.str(std::string());
+    while (!m_pending.empty()) {
+      PrefixNode *node = m_pending.front();
+      m_pending.pop();
+      for (const auto &[label, child] : node->m_edges) {
+        m_pending.push(child);
       }
       if (node->is_final()) {
-        node->buffer(ss);
+        node->buffer(m_ss);
         break;
       }
     }
@@ -30,12 +30,12 @@ namespace LCompilers::LDictionary {
   }
 
   auto PrefixIterator::operator*() const -> std::string {
-    return ss.str();
+    return m_ss.str();
   }
 
   auto PrefixIterator::operator==(const PrefixIterator &other) const -> bool {
-    return (_pending.size() == other._pending.size())
-      && (ss.str() == other.ss.str());
+    return (m_pending.size() == other.m_pending.size())
+      && (m_ss.str() == other.m_ss.str());
   }
 
 } // namespace LCompilers::LDictionary

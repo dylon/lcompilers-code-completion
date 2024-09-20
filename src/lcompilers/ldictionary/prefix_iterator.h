@@ -17,8 +17,8 @@ namespace LCompilers::LDictionary {
     auto operator*() const -> std::string;
     auto operator==(const PrefixIterator &other) const -> bool;
   private:
-    std::queue<PrefixNode *> _pending;
-    std::stringstream ss;
+    std::queue<PrefixNode *> m_pending;
+    std::stringstream m_ss;
   }; // class PrefixIterator
 
 } // namespace LCompilers::LDictionary

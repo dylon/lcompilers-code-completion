@@ -21,8 +21,8 @@ namespace LCompilers::LDictionary {
     auto begin() const -> PrefixIterator;
     auto end() const -> PrefixIterator;
   private:
-    PrefixNode *_root;
-    std::size_t _size;
+    PrefixNode *m_root;
+    std::size_t m_size;
   }; // class PrefixTrie
 
 } // namespace LCompilers::LDictionary

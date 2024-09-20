@@ -3,9 +3,9 @@
 namespace LCompilers::LDictionary {
 
   PrefixNode::PrefixNode(PrefixNode *parent, char label)
-    : _parent(parent),
-      _label(label),
-      _is_final(false){
+    : m_parent(parent),
+      m_label(label),
+      m_is_final(false){
     // empty
   }
 
@@ -15,17 +15,17 @@ namespace LCompilers::LDictionary {
   }
 
   PrefixNode::~PrefixNode() {
-    for (const auto &[label, child] : _edges) {
+    for (const auto &[label, child] : m_edges) {
       delete child;
     }
   }
 
   auto PrefixNode::add_edge(char label) -> PrefixNode * {
     PrefixNode *child;
-    auto iter = _edges.find(label);
-    if (iter == _edges.end()) {
+    auto iter = m_edges.find(label);
+    if (iter == m_edges.end()) {
       child = new PrefixNode(this, label);
-      _edges.emplace(label, child);
+      m_edges.emplace(label, child);
     } else {
       child = iter->second;
     }
@@ -33,33 +33,33 @@ namespace LCompilers::LDictionary {
   }
 
   auto PrefixNode::is_final() const -> bool {
-    return _is_final;
+    return m_is_final;
   }
 
   void PrefixNode::is_final(bool is_final) {
-    _is_final = is_final;
+    m_is_final = is_final;
   }
 
   auto PrefixNode::parent() const -> PrefixNode * {
-    return _parent;
+    return m_parent;
   }
 
   auto PrefixNode::label() const -> char {
-    return _label;
+    return m_label;
   }
 
   auto PrefixNode::transition(char label) -> PrefixNode * {
-    auto iter = _edges.find(label);
-    if (iter == _edges.end()) {
+    auto iter = m_edges.find(label);
+    if (iter == m_edges.end()) {
       return nullptr;
     }
     return iter->second;
   }
 
   void PrefixNode::buffer(std::stringstream &ss) const {
-    if (_parent != nullptr) {
-      _parent->buffer(ss);
-      ss << _label;
+    if (m_parent != nullptr) {
+      m_parent->buffer(ss);
+      ss << m_label;
     }
     // do not buffer the root node
   }

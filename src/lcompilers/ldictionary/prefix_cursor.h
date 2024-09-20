@@ -19,8 +19,8 @@ namespace LCompilers::LDictionary {
     auto curr() const -> PrefixNode *;
     auto prev() const -> PrefixNode *;
   private:
-    PrefixNode *_curr;
-    PrefixNode *_prev;
+    PrefixNode *m_curr;
+    PrefixNode *m_prev;
   };
 
 } // namespace LCompilers::LDictionary
